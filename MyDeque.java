@@ -36,6 +36,9 @@ public class MyDeque<E>{
   }
 
   public void addFirst(E element){
+    if (size == data.length){
+      //resize function;
+    }
     if (start == 0){
       if (end != data.length -1){
       start = data.length -1;
@@ -73,6 +76,14 @@ public class MyDeque<E>{
   }
   public E getLast(){
   return data[end];
+}
+private void resize(){
+  E[] temp = (E[])new Object[data.length *2];
+  if (end >= start){
+    for(int i = start; i <= end; i ++){
+      temp[i -start] = data[i];
+    }
+  }
 }
   //*/
   public static void main(String[] args) {
