@@ -1,18 +1,16 @@
+@SuppressWarnings("unchecked")
 public class MyDeque<E>{
   private E[] data;
   private int size, start, end;
-
-  @SuppressWarnings("unchecked")
   public MyDeque(){
     data = (E[])new Object[10];
-    size = 0;
+    size = 1;
     start = 0;
     end = 0;
   }
-  @SuppressWarnings("unchecked")
   public MyDeque(int initialCapacity){
     data = (E[])new Object[initialCapacity];
-    size = 0;
+    size = 1;
     start = 0;
     end = 0;
    }
@@ -20,7 +18,7 @@ public class MyDeque<E>{
     return size;
   }
   public String toString(){
-    String ans = "";
+    String ans = "{";
     if (end >= start){
       for(int i = start; i <= end; i ++){
         ans += data[i] + " ";
@@ -34,7 +32,7 @@ public class MyDeque<E>{
         ans += data[k] + " ";
       }
     }
-    return ans;
+    return ans + "}";
   }
 
   public void addFirst(E element){
@@ -48,27 +46,27 @@ public class MyDeque<E>{
       start --;
       data[start] = element;
     }
+    size ++;
    }
-  public void addLast(E element){ }
+  public void addLast(E element){
+    end ++;
+    data[end] = element;
+    size ++;
+   }
   public E removeFirst(){
-    if (start == data.length -1){
-      // do shitfing stuff
-    }
-    else{
-      int oldStart = start;
-      start ++;
-      return data[oldStart];
-    }
+    E returnValue = data[start];
+    start ++;
+    size --;
+    return returnValue;
   }
   public E removeLast(){
     if (end == 0){
       // do shitfing stuff
     }
-    else{
       int oldEnd = end;
       end --;
+      size --;
       return data[oldEnd];
-    }
   }
   public E getFirst(){
     return data[start];
@@ -76,8 +74,20 @@ public class MyDeque<E>{
   public E getLast(){
   return data[end];
 }
-  */
+  //*/
   public static void main(String[] args) {
-
+    MyDeque test = new MyDeque(10);
+    System.out.println(test.removeFirst());
+    test.addLast(1);
+    test.addLast(2);
+    test.addLast(3);
+    test.addLast(4);
+    test.addLast(5);
+    test.addLast(6);
+    test.addFirst(0);
+    System.out.println(test);
+    System.out.println("Size: " + test.size());
+    System.out.println("LastIndex: " + test.getLast());
+    System.out.println("FirstIndex: " + test.getFirst());
   }
 }
