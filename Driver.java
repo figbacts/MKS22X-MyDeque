@@ -1,3 +1,14 @@
+import java.util.*;
+
+public class Driver {
+
+	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+
+	Important: this Driver is contingent on your toString already working. If your toString is broken, you may recieve confusing results.
+
+
+	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 	private static String message(String input, String desired, String output) {
 		return String.format("\n%s\n\n\tDesired output:   %s\n\tYour output:      %s", input, desired, output);
@@ -35,12 +46,10 @@
 
 		if (!deque.toString().equals("{}"))
 			out.add(message("{}.toString()", "\"{}\"", "\""+deque.toString()+"\""));
-
 		if (deque.size() != 0)
 			out.add(message("{}.size()", 0, deque.size()));
 
 		// exception testing
-
 		try {
 			deque.getFirst();
 			out.add(message("{}.getFirst()", "NoSuchElementException", Integer.toString(deque.getFirst())));
@@ -179,7 +188,7 @@
 		}
 
 		// stepping forwards -- this should place us somewhere in the middle of the data array
-
+	/*
 		deque = new MyDeque<>();
 		comp = new ArrayDeque<>();
 
@@ -341,7 +350,7 @@
 				break;
 			}
 		}
-
+*/
 		// summary
 
 		if (out.size() == 0) {
