@@ -156,35 +156,12 @@ private void resize(){
 }
   //*/
   public static void main(String[] args) {
-    MyDeque test = new MyDeque(10);
-    //System.out.println(test.removeFirst());
-    test.addFirst(0);
-    /*
-    test.addLast(2);
-    test.addLast(3);
-    test.addLast(4);
-    test.addLast(5);
-    test.addLast(6);
-    test.addLast(7);
-    test.addLast(8);
-    test.addLast(9);
-    test.addLast(10);
-    test.addLast(11);
-    test.addFirst(19);
-    /*
-    test.addFirst(20);
-    test.addFirst(19);
-    test.addFirst(19);
-    test.addFirst(19);
-    test.addFirst(19);
-    test.addFirst(19);
-    test.addFirst(23);
-    */
+    MyDeque test = new MyDeque(100);
+    for(int i = 0; i < 11 ;i ++){
+      test.addLast(i);
+    }
     System.out.println(test);
-    System.out.println(Arrays.toString(test.data));
-    System.out.println(test.start);
-    System.out.println("Size: " + test.size());
-    System.out.println("LastValue: " + test.getLast());
-    System.out.println("FirstValue: " + test.getFirst());
+    test.removeFirst();
+    System.out.println(test);
   }
 }
