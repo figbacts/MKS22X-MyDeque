@@ -19,14 +19,14 @@ public class MyDeque<E>{
     return size;
   }
   public String toString(){
-    String ans = "{";
+    String ans = "[";
     if (end >= start){
-      for(int i = start; i <= end; i ++){
+      for(int i = start; i < end; i ++){
         if (data[i] == null){
 
         }
         else{
-        ans += data[i] + " ";
+        ans += data[i] + ", ";
       }
       }
     }
@@ -35,10 +35,10 @@ public class MyDeque<E>{
         if(data[j] == null){
         }
         else{
-        ans += data[j] + " ";
+        ans += data[j] + ", ";
       }
       }
-      for (int k = 0; k <= end; k ++){
+      for (int k = 0; k < end; k ++){
         if(data[k] == null){
         }
         else{
@@ -46,20 +46,20 @@ public class MyDeque<E>{
       }
       }
     }
-    return ans + "}";
+    return ans + "]";
   }
 
   public void addFirst(E element){
     if (element == null){
       throw new NullPointerException("NullPointerException at addFirst(element)");
     }
+    if (size == data.length){
+      resize();
+    }
     if(size ==0){
       data[start] = element;
       size ++;
       return;
-    }
-    if (size == data.length){
-      resize();
     }
     if (start == 0){
       if (end != data.length -1){
@@ -77,13 +77,17 @@ public class MyDeque<E>{
     if (element == null){
       throw new NullPointerException("NullPointerException at addLast(element)");
     }
-    if (size ==0){
+    if(size == data.length){
+      resize();
+      end ++;
       data[end] = element;
       size ++;
       return;
     }
-    if(size == data.length){
-      resize();
+    if (size ==0){
+      data[end] = element;
+      size ++;
+      return;
     }
     if (end != data.length -1){
     end ++;
@@ -101,11 +105,11 @@ public class MyDeque<E>{
       throw new NoSuchElementException("NoSuchElementException at removeFirst()");
     }
     E returnValue = data[start];
-    if (start == size -1){
-      start = 0;
+    if (start != data.length -1){
+      start ++;
     }
     else{
-      start ++;
+      start = 0;
     }
     size --;
     return returnValue;
@@ -114,11 +118,13 @@ public class MyDeque<E>{
     if (size == 0){
       throw new NoSuchElementException("NoSuchElementException at removeLast()");
     }
+    int oldEnd = end;
     if (end == 0){
-      end = size;
+      end = size-1;
     }
-      int oldEnd = end;
+    else{
       end --;
+    }
       size --;
       return data[oldEnd];
   }
@@ -137,10 +143,9 @@ public class MyDeque<E>{
 private void resize(){
   E[] temp = (E[])new Object[data.length *2];
   if (end >= start){
-    for(int i = start; i <= end; i ++){
-      temp[i -start] = data[i];
+    for(int i = 0; i <= end; i ++){
+      temp[i] = data[i+start];
     }
-    data = temp;
   }
   else{
     for(int j = start; j < data.length; j ++){
@@ -149,17 +154,17 @@ private void resize(){
     for(int k = 0; k <= end; k ++){
       temp[size - start + k] = data[k];
     }
-    data=temp;
-    start = 0;
-    end = size -1;
   }
+  data=temp;
+  start = 0;
+  end = size;
+
 }
   //*/
   public static void main(String[] args) {
     MyDeque test = new MyDeque(10);
-    //System.out.println(test.removeFirst());
+  //System.out.println(test.removeFirst());
     test.addFirst(0);
-    /*
     test.addLast(2);
     test.addLast(3);
     test.addLast(4);
@@ -170,19 +175,18 @@ private void resize(){
     test.addLast(9);
     test.addLast(10);
     test.addLast(11);
+    //System.out.println(test.start);
     test.addFirst(19);
-    /*
-    test.addFirst(20);
-    test.addFirst(19);
-    test.addFirst(19);
-    test.addFirst(19);
-    test.addFirst(19);
-    test.addFirst(19);
-    test.addFirst(23);
-    */
+    //System.out.println(test.start);
+    test.removeFirst();
+    //System.out.println(test.start);
+    test.removeLast();
+    test.removeFirst();
+    test.removeFirst();
     System.out.println(test);
     System.out.println(Arrays.toString(test.data));
     System.out.println(test.start);
+
     System.out.println("Size: " + test.size());
     System.out.println("LastValue: " + test.getLast());
     System.out.println("FirstValue: " + test.getFirst());
